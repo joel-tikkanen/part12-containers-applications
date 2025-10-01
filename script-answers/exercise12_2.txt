@@ -1,0 +1,19 @@
+Script started on Wed Oct  1 16:01:50 2025
+/dev/fd/12:18: command not found: compdef
+Your user’s .npmrc file (${HOME}/.npmrc)
+has a `globalconfig` and/or a `prefix` setting, which are incompatible with nvm.
+Run `nvm use --delete-prefix v22.17.0 --silent` to unset it.
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBookPro.home/Users/joeltikkanen/part12-containers-applications[0m[27m[24m[Jjoeltikkanen@MacBookPro part12-containers-applications % [K[?2004h[7mdocker run -it ubuntu b[7ma[7msh[27m[K[A[54C[27md[27mo[27mc[27mk[27me[27mr[27m [27mr[27mu[27mn[27m [27m-[27mi[27mt[27m [27mu[27mb[27mu[27mn[27mt[27mu[27m [27mba[27ms[27mh[?2004l
+[?2004h]0;root@fb7156f1be4e: /root@fb7156f1be4e:/# [7mmkdir -p /usr/src/app[27mmkdir -p /usr/src/app
+[?2004l[?2004h]0;root@fb7156f1be4e: /root@fb7156f1be4e:/# [7mecho 'console.log("lol");' > /usr/src/app/index.js[27m]0;root@fb7156f1be4e: /root@fb7156f1be4e:/# echo 'console.log("lol");' > /usr/src/app/index.js
+[?2004l[?2004h]0;root@fb7156f1be4e: /root@fb7156f1be4e:/# [Kexit
+[?2004lexit
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBookPro.home/Users/joeltikkanen/part12-containers-applications[0m[27m[24m[Jjoeltikkanen@MacBookPro part12-containers-applications % [K[?2004heexit[?2004l
+
+Saving session...
+...copying shared history...
+...saving history...truncating history files...
+...completed.
+Deleting expired sessions...       2 completed.
+
+Script done on Wed Oct  1 16:03:13 2025
