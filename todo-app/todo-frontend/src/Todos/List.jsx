@@ -3,21 +3,24 @@ import Todo from './Todo'
 
 const TodoList = ({ todos, deleteTodo, completeTodo }) => {
 
-  console.log(todos)
-  {
-    todos
-      .map(todo => {
-        return (
+  return (
+    <>
+      {todos
+        .map(todo => (
           <Todo
             key={todo._id}
             onClickComplete={completeTodo}
             onClickDelete={deleteTodo}
             todo={todo}
           />
-        )
-      })
-    .reduce((acc, cur) => [...acc, <hr key={Math.random()} />, cur], [])
-  }
+        ))
+        .reduce(
+          (acc, cur, index) =>
+            index === 0 ? [cur] : [...acc, <hr key={`hr-${index}`} />, cur],
+          []
+        )}
+    </>
+  )
 }
 
 export default TodoList
