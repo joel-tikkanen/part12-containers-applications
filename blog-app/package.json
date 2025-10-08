@@ -1,0 +1,22 @@
+{
+  "name": "blog-cicd",
+  "version": "1.0.0",
+  "description": "Blog app with client and server",
+  "scripts": {
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "build-client": "cd client && npm run build",
+    "copy-client": "rm -rf server/dist && cp -r client/dist server/dist",
+    "build": "npm run install-client && npm run install-server && npm run build-client && npm run copy-client",
+    "start-server": "cd server && npm start",
+    "dev-server": "cd server && npm run dev",
+    "lint-client": "cd client && npm run lint",
+    "lint-server": "cd server && npm run lint",
+    "lint": "npm run lint-client && npm run lint-server",
+    "test-client": "cd client && npm test -- --coverage --watchAll=false",
+    "test-server": "cd server && npm test",
+    "test": "npm run test-server && npm run test-client"
+  },
+  "author": "Joel Tikkanen",
+  "license": "ISC"
+}

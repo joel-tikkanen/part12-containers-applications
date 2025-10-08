@@ -1,0 +1,60 @@
+services:
+  frontend:
+    build:
+      context: ./client
+      dockerfile: dev.Dockerfile
+    container_name: blog-frontend-dev
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8080/api
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: dev.Dockerfile
+    container_name: blog-backend-dev
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/blog_database?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:6
+    container_name: blog-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: the_username
+      MONGO_INITDB_ROOT_PASSWORD: the_password
+    volumes:
+      - ./mongo_data:/data/db
+
+  redis:
+    image: redis
+    container_name: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./redis_data:/data
+
+  nginx:
+    image: nginx:1.20.1
+    container_name: reverse-proxy
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  mongo_data:
+  redis_data:

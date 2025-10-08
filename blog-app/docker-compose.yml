@@ -1,0 +1,53 @@
+services:
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: blog-front-prod
+    container_name: blog-frontend-prod
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: blog-back-prod
+    container_name: blog-backend-prod
+    environment:
+      - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/blog_database?authSource=admin
+      - REDIS_URL=redis://redis:6379
+      - PORT=3000
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo:6
+    container_name: blog-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: the_username
+      MONGO_INITDB_ROOT_PASSWORD: the_password
+    volumes:
+      - ./mongo_data:/data/db
+
+  redis:
+    image: redis
+    container_name: blog-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./redis_data:/data
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: blog-reverse-proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  mongo_data:
+  redis_data:
